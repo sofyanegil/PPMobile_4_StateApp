@@ -37,12 +37,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting() {
     var name by rememberSaveable { mutableStateOf("") }
+    var scaffoldState = rememberScaffoldState(
+        drawerState = rememberDrawerState(initialValue = DrawerValue.Open)
+    )
 
-    Column(modifier = Modifier.padding(10.dp)) {
-        OutlinedTextField(value = name, onValueChange = {
-            name = it
-        })
-        Text(text = "Hello $name")
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar() {
+                Text(text = "State App")
+            }
+        },
+        drawerContent = {
+            Text(text = "Drawer Content")
+        }
+    ) {
+        Column(modifier = Modifier.padding(10.dp)) {
+            OutlinedTextField(value = name, onValueChange = {
+                name = it
+            })
+            Text(text = "Hello $name")
+        }
     }
 }
 
